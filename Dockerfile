@@ -1,7 +1,7 @@
 FROM wordpress:php5.6-fpm-alpine
 MAINTAINER Elegant Themes, Inc.
 
-RUN apk --no-cache add curl git
+RUN apk --no-cache add curl git openssh
 RUN adduser -D ubuntu
 
 ##
