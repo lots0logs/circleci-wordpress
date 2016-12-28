@@ -5,6 +5,11 @@ RUN apk --no-cache add curl git
 RUN adduser -D ubuntu
 
 ##
+# Make sure db container has time to startup
+##
+RUN sed -i 's|#!/bin/bash|&\nsleep 15|g' /usr/local/bin/docker-entrypoint.sh
+
+##
 # Install wp-cli
 ##
 RUN curl -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/local/bin/wp-cli \
