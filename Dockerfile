@@ -1,6 +1,6 @@
 FROM wordpress:php5.6-fpm-alpine
 
-RUN apk --no-cache add curl git openssh bash unzip ruby parallel
+RUN apk --no-cache add curl git openssh bash unzip ruby parallel shadow
 
 ENV \
 	NGINX_VERSION=1.11.13 \
