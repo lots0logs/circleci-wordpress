@@ -15,18 +15,18 @@ ENV \
 
 
 ##
+# NodeJS
+##
+ADD scripts/nodejs.sh /bin/
+RUN nodejs.sh
+
+
+##
 # Nginx
 ##
 ADD scripts/nginx.sh /bin/
 ADD config/*.conf /tmp/
 RUN nginx.sh
-
-
-##
-# NodeJS
-##
-ADD scripts/nodejs.sh /bin/
-RUN nodejs.sh
 
 
 ##
