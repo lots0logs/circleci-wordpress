@@ -1,30 +1,47 @@
 FROM wordpress:php5.6-fpm-alpine
-MAINTAINER Elegant Themes, Inc.
 
-RUN apk --no-cache add curl git openssh bash
-RUN adduser -D ubuntu
+RUN apk --no-cache add curl git openssh bash unzip ruby
+
+ENV \
+	NGINX_VERSION=1.11.13 \
+	NPM_CONFIG_LOGLEVEL=info \
+	NODE_VERSION=6.10.2 \
+	YARN_VERSION=0.23.2 \
+	RUBY_MAJOR=2.4 \
+	RUBY_VERSION=2.4.1 \
+	RUBY_DOWNLOAD_SHA256=4fc8a9992de3e90191de369270ea4b6c1b171b7941743614cc50822ddc1fe654 \
+	RUBYGEMS_VERSION=2.6.11 \
+	BUNDLER_VERSION=1.14.6
+
 
 ##
-# Make sure db container has time to startup
+# Nginx
 ##
-RUN sed -i 's|#!/bin/bash|&\nsleep 15|g' /usr/local/bin/docker-entrypoint.sh
+ADD scripts/nginx.sh /bin/
+ADD config/*.conf /tmp/
+RUN nginx.sh
+
 
 ##
-# Install wp-cli
+# NodeJS
 ##
-RUN curl -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/local/bin/wp-cli \
-	&& chmod +rx /usr/local/bin/wp-cli
+ADD scripts/nodejs.sh /bin/
+RUN nodejs.sh
+
 
 ##
-# Install composer
+# WordPress
 ##
-RUN curl -L https://getcomposer.org/installer -o composer-setup.php \
-	&& php composer-setup.php \
-	&& rm  composer-setup.php \
-	&& mv composer.phar /usr/local/bin/composer \
-	&& chmod +rx /usr/local/bin/composer \
+ADD scripts/wordpress.sh /bin/
+RUN wordpress.sh
 
-    ##
-    # Add WP coding standards with php codesniffer
-    ##
-    && composer create-project wp-coding-standards/wpcs:dev-master --no-interaction --no-dev /var/lib/wpcs
+
+EXPOSE 80 443
+
+LABEL \
+	org.label-schema.schema-version="1.0" \
+	org.label-schema.vendor="Elegant Themes, Inc" \
+	org.label-schema.name="CircleCI WordPress" \
+	org.label-schema.version="4.7.3_5.6.30" \
+	org.label-schema.description="Automated testing for WordPress sites using Browserstack."
+
