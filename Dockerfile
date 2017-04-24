@@ -38,6 +38,8 @@ RUN wordpress.sh
 
 EXPOSE 80 443
 
+RUN apk --no-cache add coreutils
+
 LABEL \
 	org.label-schema.schema-version="1.0" \
 	org.label-schema.vendor="Elegant Themes, Inc" \
