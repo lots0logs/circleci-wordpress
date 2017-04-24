@@ -38,5 +38,5 @@ sed -i 's|exec "$@"|nginx \&\n&|g' /usr/local/bin/docker-entrypoint.sh
 ##
 # Make sure our non-root user can read/write in the wordpress directory
 ##
-usermod -a -G nginx ubuntu
+chmod a+rw /var/www/html
 
