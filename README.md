@@ -16,4 +16,4 @@ Lightweight Docker image for CircleCI 2.0 to test WordPress sites.
 |Ruby     |2.3.1  |
 
 ## Requirements
-* A separate, linked database container named "database".
+* A separate, database container with port `3306` exposed.
