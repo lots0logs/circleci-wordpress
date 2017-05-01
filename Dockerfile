@@ -1,6 +1,14 @@
 FROM wordpress:php5.6-fpm-alpine
 
-RUN apk --no-cache add curl git openssh bash unzip ruby parallel
+RUN apk --no-cache add \
+	curl \
+	git \
+	openssh \
+	bash \
+	unzip \
+	ruby \
+	parallel \
+	coreutils
 
 ENV \
 	NGINX_VERSION=1.11.13 \
@@ -38,12 +46,11 @@ RUN wordpress.sh
 
 EXPOSE 80 443
 
-RUN apk --no-cache add coreutils
 
 LABEL \
 	org.label-schema.schema-version="1.0" \
 	org.label-schema.vendor="Elegant Themes, Inc" \
 	org.label-schema.name="CircleCI WordPress" \
-	org.label-schema.version="4.7.3_5.6.30" \
+	org.label-schema.version="4.7.4_5.6.30" \
 	org.label-schema.description="Automated testing for WordPress sites using Browserstack."
 
