@@ -1,5 +1,7 @@
-# circleci-wordpress
-Lightweight Docker image for CircleCI 2.0 to test WordPress sites.
+# CircleCI WordPress
+[![Docker Automated build](https://img.shields.io/docker/automated/lots0logs/circleci-wordpress.svg?style=flat-square)](https://hub.docker.com/r/lots0logs/circleci-wordpress/) &nbsp;[![Docker Build Status](https://img.shields.io/docker/build/lots0logs/circleci-wordpress.svg?style=flat-square)](https://hub.docker.com/r/lots0logs/circleci-wordpress/)
+
+Docker image for running acceptance tests on a WordPress website using CircleCI 2.0 and Browserstack.
 
 ## Image Base
 * Alpine 3.4
